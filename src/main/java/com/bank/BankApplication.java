@@ -4,8 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 import com.bank.controller.AccountControl;
 
@@ -26,4 +30,20 @@ public class BankApplication { //implements CommandLineRunner {
 //	//	template.update("INSERT INTO ACCOUNT(account_type, account_number) VALUES('current', 0012250016006)");
 //	}
 
+
+//@Bean
+//public HttpSessionEventPublisher httpSessionEventPublisher() {
+//    return new HttpSessionEventPublisher();
+//}
+//
+//@Bean
+//public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//    http
+//        .sessionManagement(session -> session
+//            .maximumSessions(1)
+//            .maxSessionsPreventsLogin(true)
+//        );
+//    return http.build();
+//}
 }
+
