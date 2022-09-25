@@ -61,6 +61,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		}
 		filterChain.doFilter(request, response);
 		
-		if(username != null && )
+		if(username != null &&  )
 	}
 }
