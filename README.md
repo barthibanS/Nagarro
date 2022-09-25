@@ -28,7 +28,7 @@ toDate
 minAmount
 maxAmount
 
-GET URL : localhost:8087/admin/5?toDate=08-09-2022&fromDate=08-09-2020&minAmount=120&maxAmount=75
+GET URL : localhost:8087/admin/{accoutId}?toDate=08-09-2022&fromDate=08-09-2020&minAmount=120&maxAmount=75
 
 Place Bearer token in the header with key and sample value as following ->
 key : Authorization
@@ -36,8 +36,8 @@ value : Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjY0MTY1MTIxLCJp
 
 __________________________________________________________________________________________________________________
 
-Following url for user with not search option
-GET URL : localhost:8087/user/5
+Following url for user without search option
+GET URL : localhost:8087/user/{accoutId}
 
 Place Bearer token in the header with key and sample value as following -> 
 key : Authorization
