@@ -1,0 +1,8 @@
+package com.nagarro.bank.repository;
+
+import org.springframework.data.repository.CrudRepository;
+
+
+public interface AccountRepo extends CrudRepository<AccountEntity, Integer> {
+
+}

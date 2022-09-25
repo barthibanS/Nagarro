@@ -1,0 +1,22 @@
+package com.bank.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.bank.entity.AccountEntity;
+import com.bank.repository.AccountRepo;
+import com.bank.service.AccountService;
+
+@Service
+public class AccountImpl implements AccountService {
+
+	@Autowired
+	AccountRepo accountRepo;
+	
+	@Override
+	public AccountEntity getAcountStatement(String id) {
+		
+		return accountRepo.findById(Integer.parseInt(id)).get();
+	}
+
+}

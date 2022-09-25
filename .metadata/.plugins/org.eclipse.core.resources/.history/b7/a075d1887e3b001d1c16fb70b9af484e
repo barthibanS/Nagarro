@@ -1,0 +1,10 @@
+package com.nagarro.bank.service;
+
+import com.nagarro.bank.entity.AccountEntity;
+
+public interface AccountService {
+
+	AccountEntity getAcountStatement(String id);
+
+
+}

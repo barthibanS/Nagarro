@@ -1,0 +1,19 @@
+package com.nagarro.bank.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+@Service
+public class AccountImpl implements AccountService {
+
+	@Autowired
+	AccountRepo accountRepo;
+	
+	@Override
+	public AccountEntity getAcountStatement(String id) {
+		
+		return accountRepo.findById(Integer.parseInt(id)).get();
+	}
+
+}

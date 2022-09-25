@@ -1,0 +1,9 @@
+package com.nagarro.bank.service;
+
+
+public interface AccountService {
+
+	AccountEntity getAcountStatement(String id);
+
+
+}

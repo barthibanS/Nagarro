@@ -1,0 +1,83 @@
+package com.nagarro.bank.entity;
+
+import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "statement")
+public class StatementEntity {
+
+	@Id @GeneratedValue
+	@Column(name = "ID")
+	int id;
+	
+	@Column(name = "account_id")
+	int accountId;
+	
+	@Column(name = "datefield")
+	String dataField;
+	
+	@Column(name = "amount")
+	String amount;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(int accountId) {
+		this.accountId = accountId;
+	}
+
+	public String getDataField() {
+		return dataField;
+	}
+
+	public void setDataField(String dataField) {
+		this.dataField = dataField;
+	}
+
+	public String getAmount() {
+		return amount;
+	}
+
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		StatementEntity other = (StatementEntity) obj;
+		return id == other.id;
+	}
+
+	@Override
+	public String toString() {
+		return "StatementEntity [id=" + id + ", accountId=" + accountId + ", dataField=" + dataField + ", amount="
+				+ amount + "]";
+	}
+	
+}
