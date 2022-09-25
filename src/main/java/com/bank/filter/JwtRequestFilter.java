@@ -61,6 +61,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		}
 		filterChain.doFilter(request, response);
 		
-		if(username != null &&  )
+		if(username != null &&  response.getStatus() == HttpServletResponse.SC_FORBIDDEN) {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		}
 	}
 }
