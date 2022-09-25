@@ -1,6 +1,6 @@
 # Nagarro
 
-Change the detault month in properties.application file in the project it has been set as 30 since old records were there in db file
+Change the detault month in application.properties file in the project it has been set as 30 since old records were there in db file
 defaultmonth = 30
 ____________________________________________________________________________________________________
 Generate bearer token using following request:
