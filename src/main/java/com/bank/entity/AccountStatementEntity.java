@@ -1,11 +1,8 @@
 package com.bank.entity;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -15,13 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "statement")
-public class StatementEntity implements Serializable {
+public class AccountStatementEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -86,16 +82,16 @@ public class StatementEntity implements Serializable {
 
 	public LocalDate getDate() {
 		try {
-			return LocalDate.parse(dateField,DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+			return LocalDate.parse(dateField, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 		} catch (Exception e) {
 			return null;
 		}
 	}
-	
+
 	public double getAmountNumber() {
 		return Double.parseDouble(amount);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -109,7 +105,7 @@ public class StatementEntity implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		StatementEntity other = (StatementEntity) obj;
+		AccountStatementEntity other = (AccountStatementEntity) obj;
 		return id == other.id;
 	}
 

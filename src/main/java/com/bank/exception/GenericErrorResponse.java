@@ -1,23 +1,23 @@
 package com.bank.exception;
 
-public class ErrorResponse {
+public class GenericErrorResponse {
  
     private int statusCode;
     private String message;
  
-    public ErrorResponse(String message)
+    public GenericErrorResponse(String message)
     {
         super();
         this.message = message;
     }
 
-	public ErrorResponse(int statusCode, String message) {
+	public GenericErrorResponse(int statusCode, String message) {
 		super();
 		this.statusCode = statusCode;
 		this.message = message;
 	}
 
-	public ErrorResponse() {
+	public GenericErrorResponse() {
 		super();
 	}
 

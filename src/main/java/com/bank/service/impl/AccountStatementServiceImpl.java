@@ -1,7 +1,6 @@
 package com.bank.service.impl;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -12,16 +11,23 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.bank.entity.AccountEntity;
-import com.bank.entity.StatementEntity;
+import com.bank.entity.AccountStatementEntity;
 import com.bank.exception.NoSuchAccountExistsException;
-import com.bank.repository.AccountRepo;
-import com.bank.service.AccountService;
+import com.bank.repository.AccountStatementRepository;
+import com.bank.service.AccountStatementService;
 
+/**
+ * 
+ * @author Nithya
+ *
+ */
+
+//@Slf4j
 @Service
-public class AccountImpl implements AccountService {
+public class AccountStatementServiceImpl implements AccountStatementService {
 
 	@Autowired
-	AccountRepo accountRepo;
+	private AccountStatementRepository accountStatementRepository;
 
 	@Value("${defaultmonth}")
 	private int months;
@@ -49,18 +55,19 @@ public class AccountImpl implements AccountService {
 		}
 
 		AccountEntity accountEntity = null;
-		Optional<AccountEntity> accountEntityOptional = accountRepo.findById(Integer.parseInt(id));
+		Optional<AccountEntity> accountEntityOptional = accountStatementRepository.findById(Integer.parseInt(id));
 
 		if (accountEntityOptional.isPresent()) {
 			accountEntity = accountEntityOptional.get();
-			Predicate<StatementEntity> statementPredicate = generatePredicate(fromDate, toDate, minAmount, maxAmount);
+			Predicate<AccountStatementEntity> statementPredicate = generatePredicate(fromDate, toDate, minAmount,
+					maxAmount);
 			accountEntity.setStatement(filteredAttribute(accountEntity.getStatement(), statementPredicate));
 		}
 
 		return accountEntity;
 	}
 
-	private Predicate<StatementEntity> generatePredicate(LocalDate fromDate, LocalDate toDate, Double minAmount,
+	private Predicate<AccountStatementEntity> generatePredicate(LocalDate fromDate, LocalDate toDate, Double minAmount,
 			Double maxAmount) {
 		return statementList -> (statementList.getDate().compareTo(fromDate) >= 0
 				&& statementList.getDate().compareTo(toDate) <= 0
@@ -68,8 +75,8 @@ public class AccountImpl implements AccountService {
 				&& (maxAmount == null || statementList.getAmountNumber() <= maxAmount));
 	}
 
-	private List<StatementEntity> filteredAttribute(List<StatementEntity> statement,
-			Predicate<StatementEntity> statementPredicate) {
+	private List<AccountStatementEntity> filteredAttribute(List<AccountStatementEntity> statement,
+			Predicate<AccountStatementEntity> statementPredicate) {
 		statement = statement.stream().filter(statementPredicate).collect(Collectors.toList());
 		return statement;
 	}

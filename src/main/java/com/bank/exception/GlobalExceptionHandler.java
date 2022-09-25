@@ -13,6 +13,6 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(value = NoSuchAccountExistsException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public @ResponseBody ResponseEntity<Object> handleException(NoSuchAccountExistsException ex) {
-		return new ResponseEntity<>(new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage()), HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(new GenericErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage()), HttpStatus.BAD_REQUEST);
 	}
 }

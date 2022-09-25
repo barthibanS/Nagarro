@@ -11,8 +11,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
-import com.bank.controller.AccountControl;
-
 @SpringBootApplication
 //@ComponentScan(basePackages = "com.example.bank.controller")
 public class BankApplication { //implements CommandLineRunner {
@@ -47,3 +45,10 @@ public class BankApplication { //implements CommandLineRunner {
 //}
 }
 
+//https://mkyong.com/maven/maven-jacoco-code-coverage-example/
+//
+//https://runnable.com/docker/java/dockerize-your-java-application
+//https://codefresh.io/blog/create-docker-images-for-java/
+//https://mkyong.com/spring-boot/spring-boot-slf4j-logging-example/
+//https://www.springboottutorial.com/logging-with-spring-boot-logback-slf4j-and-log4j
+//https://www.javainuse.com/spring/springboot_session

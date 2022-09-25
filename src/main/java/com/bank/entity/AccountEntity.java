@@ -3,7 +3,6 @@ package com.bank.entity;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -29,7 +27,7 @@ public class AccountEntity implements Serializable {
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "account", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("account")
-	private List<StatementEntity> statement;
+	private List<AccountStatementEntity> statement;
 
 	@Column(name = "account_type")
 	String accountType;
@@ -37,11 +35,11 @@ public class AccountEntity implements Serializable {
 	@Column(name = "account_number")
 	String accountNumber;
 
-	public List<StatementEntity> getStatement() {
+	public List<AccountStatementEntity> getStatement() {
 		return statement;
 	}
 
-	public void setStatement(List<StatementEntity> statement) {
+	public void setStatement(List<AccountStatementEntity> statement) {
 		this.statement = statement;
 	}
 
