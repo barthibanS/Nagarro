@@ -1,6 +1,6 @@
 # Nagarro
 
-Change the detault month in application.properties file in the project it has been set as 30 since old records(after 2021) were there in db file
+Change the detault month in application.properties file in the project, it has been set as 30 since old records(after 2021) were there in db file
 
 defaultmonth = 30
 ____________________________________________________________________________________________________
