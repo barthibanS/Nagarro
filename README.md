@@ -25,13 +25,7 @@ ________________________________________________________________________________
 
 Following url for admin with attributes in GET Method:
 
-fromDate
-
-toDate
-
-minAmount
-
-maxAmount
+( fromDate, toDate, minAmount, maxAmount )
 
 GET URL : localhost:8087/admin/{accoutId}?toDate=08-09-2022&fromDate=08-09-2020&minAmount=120&maxAmount=75
 
