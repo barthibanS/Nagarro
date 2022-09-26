@@ -3,6 +3,8 @@ package com.bank.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,9 +16,13 @@ import com.bank.model.User;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
+	
+	Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
 
 	@Override
 	public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+		logger.debug("loadUserByUsername() == started");
+		
 		List<User> userList = getUserList();
 		User user = userList.stream().filter(a -> a.getUsername().equals(s)).findFirst().orElse(null);
 		
@@ -26,12 +32,16 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		authorities.add(new SimpleGrantedAuthority(user.getRoleName()));
+		
+		logger.debug("loadUserByUsername() == completed");
 
 		return new org.springframework.security.core.userdetails.User(user.getUsername(),
 				user.getPassword(), authorities);
 	}
 
 	private List<User> getUserList() {
+		
+		logger.debug("getUserList() == started");
 		
 		List<User> userlist = new ArrayList<>();
 		User user = new User();
@@ -45,6 +55,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 		user1.setPassword("$2a$10$Lhc4zQ3zLOAszQXVMtGnh.yU.8T.oWa8lm5XZ5ezXN8gbP01J4n9i");
 		user1.setRoleName("STANDARD_USER");
 		userlist.add(user1);
+		
+		logger.debug("getUserList() == completed");
 		return userlist;
 	}
 }

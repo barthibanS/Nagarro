@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,16 +18,11 @@ import com.bank.exception.NoSuchAccountExistsException;
 import com.bank.repository.AccountStatementRepository;
 import com.bank.service.AccountStatementService;
 
-/**
- * 
- * @author Nithya
- *
- */
-
-//@Slf4j
 @Service
 public class AccountStatementServiceImpl implements AccountStatementService {
-
+	
+	Logger logger = LoggerFactory.getLogger(AccountStatementServiceImpl.class);
+	
 	@Autowired
 	private AccountStatementRepository accountStatementRepository;
 
@@ -35,6 +32,8 @@ public class AccountStatementServiceImpl implements AccountStatementService {
 	@Override
 	public AccountEntity getAcountStatement(String id, LocalDate fromDate, LocalDate toDate, Double minAmount,
 			Double maxAmount) {
+		
+		logger.debug("getAcountStatement() ==  started");
 
 		if (fromDate != null && toDate != null && (toDate.isBefore(fromDate) || fromDate.isEqual(toDate))) {
 			throw new NoSuchAccountExistsException("Invalid date parameter");
@@ -63,12 +62,15 @@ public class AccountStatementServiceImpl implements AccountStatementService {
 					maxAmount);
 			accountEntity.setStatement(filteredAttribute(accountEntity.getStatement(), statementPredicate));
 		}
+		
+		logger.debug("getAcountStatement() ==  completed");
 
 		return accountEntity;
 	}
 
 	private Predicate<AccountStatementEntity> generatePredicate(LocalDate fromDate, LocalDate toDate, Double minAmount,
 			Double maxAmount) {
+		logger.debug("generatePredicate()");
 		return statementList -> (statementList.getDate().compareTo(fromDate) >= 0
 				&& statementList.getDate().compareTo(toDate) <= 0
 				&& (minAmount == null || statementList.getAmountNumber() >= minAmount)
@@ -77,6 +79,7 @@ public class AccountStatementServiceImpl implements AccountStatementService {
 
 	private List<AccountStatementEntity> filteredAttribute(List<AccountStatementEntity> statement,
 			Predicate<AccountStatementEntity> statementPredicate) {
+		logger.debug("filteredAttribute()");
 		statement = statement.stream().filter(statementPredicate).collect(Collectors.toList());
 		return statement;
 	}

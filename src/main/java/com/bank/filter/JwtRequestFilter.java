@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.bank.config.TokenManager;
+import com.bank.controller.AccountStatementController;
 import com.bank.service.impl.CustomUserDetailsService;
 import com.bank.utility.JwtUtility;
 
@@ -25,7 +26,9 @@ import io.jsonwebtoken.ExpiredJwtException;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
-
+	
+	private Logger loggerFilter = LoggerFactory.getLogger(JwtRequestFilter.class);
+	
 	@Autowired
 	private CustomUserDetailsService userDetailsService;
 	@Autowired
@@ -34,7 +37,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-
+		loggerFilter.debug("doFilterInternal() == started");
+		
 		String tokenHeader = request.getHeader("Authorization");
 		String username = null;
 		String token = null;
@@ -43,12 +47,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 			try {
 				username = tokenManager.getUsernameFromToken(token);
 			} catch (IllegalArgumentException e) {
-				System.out.println("Unable to get JWT Token");
+				loggerFilter.error("Unable to get JWT Token");
 			} catch (ExpiredJwtException e) {
-				System.out.println("JWT Token has expired");
+				loggerFilter.error("JWT Token has expired");
 			}
 		} else {
-			System.out.println("Bearer String not found in token");
+			loggerFilter.debug("Bearer String not found in token");
 		}
 		if (null != username && SecurityContextHolder.getContext().getAuthentication() == null) {
 			UserDetails userDetails = userDetailsService.loadUserByUsername(username);
@@ -59,10 +63,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 				SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 			}
 		}
-		filterChain.doFilter(request, response);
 		
 		if(username != null &&  response.getStatus() == HttpServletResponse.SC_FORBIDDEN) {
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		}
+		filterChain.doFilter(request, response);
+		
+		loggerFilter.debug("doFilterInternal() == completed");
 	}
 }

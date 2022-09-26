@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.bank.filter.JwtRequestFilter;
@@ -27,10 +28,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private JwtAuthenticationEntryPoint authenticationEntryPoint;
-	
+
 	@Autowired
 	private CustomUserDetailsService userDetailsService;
-	
+
 	@Autowired
 	private JwtRequestFilter filter;
 
@@ -52,12 +53,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests().
-		antMatchers("/authenticate").permitAll().
-		anyRequest().authenticated().and()
-				.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).and().sessionManagement()
+		http.csrf().disable().authorizeRequests().antMatchers("/authenticate").permitAll().anyRequest().authenticated()
+				.and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		
 		http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+
 	}
+	
+//	@Bean
+//	public HttpSessionEventPublisher httpSessionEventPublisher() {
+//	    return new HttpSessionEventPublisher();
+//	}
+//
+//	@Bean
+//	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//		http.sessionManagement(session -> session.maximumSessions(1).maxSessionsPreventsLogin(true));
+//		return http.build();
+//	}
 }
