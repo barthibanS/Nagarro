@@ -84,4 +84,8 @@ public class AccountStatementServiceImpl implements AccountStatementService {
 		return statement;
 	}
 
+	public void setMonths(int months) {
+		this.months = months;
+	}
+
 }

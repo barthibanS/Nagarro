@@ -1,4 +1,4 @@
-package com.example.bank;
+package com.bank;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;

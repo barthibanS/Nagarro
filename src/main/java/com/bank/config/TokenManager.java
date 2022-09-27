@@ -1,7 +1,6 @@
 package com.bank.config;
 
 import java.io.Serializable;
-import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,4 +39,9 @@ public class TokenManager implements Serializable {
 		final Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
 		return claims.getSubject();
 	}
+
+	public void setJwtSecret(String jwtSecret) {
+		this.jwtSecret = jwtSecret;
+	}
+	 
 }
